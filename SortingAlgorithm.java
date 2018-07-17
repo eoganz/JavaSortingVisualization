@@ -6,7 +6,7 @@ public class SortingAlgorithm {
    //Height and width in pixels for drawingboard. Increment determines how many squares
    public static int height = 500;
    public static int width = 500;
-   public static int increment = 1;
+   public static int increment = 10;
    
    //Amount of rows/collumns used for Calculation (Is 1 increment less than this number since x/y end at the end of the screen)
    public static int rows = height / increment;
@@ -53,6 +53,7 @@ public class SortingAlgorithm {
          }
    }
    
+
    public static void refreshPanel()
    {
       for(int i = 0; i < width; i += increment)
@@ -62,8 +63,7 @@ public class SortingAlgorithm {
 
             
          }
-      }
-      
+      }  
    }
    
    //Gets random r,g,b values
@@ -99,18 +99,18 @@ public class SortingAlgorithm {
       {
          for(int j = 0; j < height; j += increment)
          {
-            for (int k = 0; k < height - j; k+= increment)
+            for (int k = 0; k < height - (j + (2 * increment)); k += increment)
             {
-                    if (RGBList[i/ increment][k/ increment] > RGBList[i/ increment][(k + 1)/ increment])
+                    if (RGBList[i/ increment][k/ increment] > RGBList[i/ increment][(k + increment)/ increment])
                     {
  
                         // swapping of elements
-                        int t = RGBList[i/ increment][k];
-                        RGBList[i/ increment][k/ increment] = RGBList[i/ increment][(k + 1)/ increment];
-                        RGBList[i/ increment][(k + 1)/ increment] = t;
+                        int t = RGBList[i/ increment][k/ increment];
+                        RGBList[i/ increment][k/ increment] = RGBList[i/ increment][(k + increment)/ increment];
+                        RGBList[i/ increment][(k + increment)/ increment] = t;
                         
                     }
-                    refreshPanel();
+                    //refreshPanel();
             }
          }
       }
