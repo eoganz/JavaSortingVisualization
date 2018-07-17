@@ -18,6 +18,8 @@ public class SortingAlgorithm {
    
    //List for rgb values added up to help with sorting
    public static int[][] RGBList = new int[rows][cols];
+   public static float[] HSBList = new float[rows];
+   public static float[][] realHSBList = new float[rows][cols];
    
    //Object Construction
    public static Random rand = new Random();
@@ -30,11 +32,9 @@ public class SortingAlgorithm {
    {
       initializeImage();
       
-      setRGBList();
+      setHSBList();
       sortColors();
-      refreshPanel();
-      sortColors();
-      sortColors();
+      
    }
    
    
@@ -80,7 +80,7 @@ public class SortingAlgorithm {
    }
    
    //Sets the RGBList with the total rgb of the color and ListOfColors[]
-   public static void setRGBList()
+   public static void setHSBList()
    {
       for(int i = 0; i < width; i += increment)
       {
@@ -90,13 +90,14 @@ public class SortingAlgorithm {
             int currGreen = colorList[i/increment][j/increment].getGreen();
             int currBlue = colorList[i/increment][j/increment].getBlue();
             
-            RGBList[i/increment][j/increment] = currRed + currGreen + (currBlue);
+            Color.RGBtoHSB(currRed, currGreen, currBlue, HSBList);
+            realHSBList[i / increment][j/ increment] = HSBList[0];
          }
       }
 
    }
 
-   public static void sortColors()
+   public static void sortByHSB()
    {
       for(int i = 0; i < width; i += increment)
       {
@@ -104,22 +105,25 @@ public class SortingAlgorithm {
          {
             for (int k = 0; k < height - (j + increment); k += increment)
             {
-                    if (RGBList[i/ increment][k/ increment] > RGBList[i/ increment][(k + increment)/ increment])
+                    if(realHSBList[i/ increment][k/ increment] > realHSBList[i/ increment][(k + increment)/ increment])
                     {
- 
-                        // swapping of elements
-                        int t = RGBList[i/ increment][k/ increment];
-                        RGBList[i/ increment][k/ increment] = RGBList[i/ increment][(k + increment)/ increment];
-                        RGBList[i/ increment][(k + increment)/ increment] = t;
+                        float t = realHSBList[i/ increment][k/ increment];
+                        realHSBList[i/ increment][k/ increment] = realHSBList[i/ increment][(k + increment)/ increment];
+                        realHSBList[i/ increment][(k + increment)/ increment] = t;
                         
                         Color c = colorList[i/ increment][k/ increment];
                         colorList[i/ increment][k/ increment] = new Color(colorList[i/ increment][(k + increment)/ increment].getRGB());
-                        colorList[i/ increment][(k + increment)/ increment]  = c;
+                        colorList[i/ increment][(k + increment)/ increment]  = c; 
                         
                     }
                     refreshPanel();
             }
          }
       }
+   }
+
+   public static void sortColors()
+   {
+      sortByHSB();
    }
 }
