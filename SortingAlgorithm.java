@@ -4,9 +4,12 @@ import java.util.Random;
 public class SortingAlgorithm {
 
    //Height and width in pixels for drawingboard. Increment determines how many squares
-   public static int height = 500;
-   public static int width = 500;
-   public static int increment = 10;
+   //Must be a square (x == y)
+   public static int height = 700;
+   public static int width = 700;
+   
+   //Pixel Size
+   public static int increment = 20;
    
    //Amount of rows/collumns used for Calculation (Is 1 increment less than this number since x/y end at the end of the screen)
    public static int rows = height / increment;
@@ -34,6 +37,7 @@ public class SortingAlgorithm {
       
       setHSBList();
       sortColors();
+      //refreshPanel();
       
    }
    
@@ -116,11 +120,18 @@ public class SortingAlgorithm {
                         colorList[i/ increment][(k + increment)/ increment]  = c; 
                         
                     }
+                    //ONLY USE IF BOARD IS SMALLER THAN 45! REFRESHES EVERY COMPARISON
                     refreshPanel();
             }
+            //Use for large boards.
+            //refreshPanel();
          }
+         //Close to instant results
+         //refreshPanel();
       }
    }
+   
+   
 
    public static void sortColors()
    {
