@@ -22,16 +22,15 @@ public class SortingAlgorithm {
    //Object Construction
    public static Random rand = new Random();
    public static DrawingPanel panel = new DrawingPanel(width, height);
-   public static Graphics g = panel.getGraphics();
+   
    
    //Main
    public static void main(String[] args)
    {
       initializeImage();
+      
       setRGBList();
-      sortColors();
-      
-      
+      //sortColors();
       //refreshPanel();
 
    }
@@ -40,6 +39,7 @@ public class SortingAlgorithm {
    //Initialize the drawing board and colorList[][]
    public static void initializeImage()
    {
+      Graphics g = panel.getGraphics();
       for(int i = 0; i < width; i += increment)
          {
             for(int j = 0; j < height; j += increment)
@@ -60,7 +60,7 @@ public class SortingAlgorithm {
       {
          for(int j = 0; j < height; j += increment)
          {
-
+            //g.setPixel(i, j, ListOfColors[i/ increment][j/ increment]);
             
          }
       }  
@@ -76,7 +76,7 @@ public class SortingAlgorithm {
       return new Color(r, g, b);
    }
    
-   //Sets the RGBList with the total rgb of the color
+   //Sets the RGBList with the total rgb of the color and ListOfColors[]
    public static void setRGBList()
    {
       for(int i = 0; i < width; i += increment)
@@ -86,6 +86,10 @@ public class SortingAlgorithm {
             int currRed = colorList[i/increment][j/increment].getRed();
             int currGreen = colorList[i/increment][j/increment].getGreen();
             int currBlue = colorList[i/increment][j/increment].getBlue();
+            
+            int currRGB = colorList[i/increment][j/increment].getRGB();
+            
+            ListOfColors[i/ increment][j/ increment] = currRGB;
             
             RGBList[i/increment][j/increment] = currRed + currGreen + currBlue;
          }
