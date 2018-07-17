@@ -14,7 +14,7 @@ public class SortingAlgorithm {
    
    //List of all colors as Color Objects
    public static Color[][] colorList = new Color[rows][cols];
-   public static int[][] ListOfColors = new int[rows][cols];
+
    
    //List for rgb values added up to help with sorting
    public static int[][] RGBList = new int[rows][cols];
@@ -22,6 +22,7 @@ public class SortingAlgorithm {
    //Object Construction
    public static Random rand = new Random();
    public static DrawingPanel panel = new DrawingPanel(width, height);
+   public static Graphics g = panel.getGraphics();
    
    
    //Main
@@ -30,8 +31,8 @@ public class SortingAlgorithm {
       initializeImage();
       
       setRGBList();
-      //sortColors();
-      //refreshPanel();
+      sortColors();
+      refreshPanel();
 
    }
    
@@ -39,7 +40,6 @@ public class SortingAlgorithm {
    //Initialize the drawing board and colorList[][]
    public static void initializeImage()
    {
-      Graphics g = panel.getGraphics();
       for(int i = 0; i < width; i += increment)
          {
             for(int j = 0; j < height; j += increment)
@@ -60,7 +60,9 @@ public class SortingAlgorithm {
       {
          for(int j = 0; j < height; j += increment)
          {
-            //g.setPixel(i, j, ListOfColors[i/ increment][j/ increment]);
+            g.create((i/ increment), (j/ increment), increment, increment);
+            g.setColor(colorList[i/ increment][j/ increment]);
+            g.fillRect(i, j, increment, increment);
             
          }
       }  
@@ -87,10 +89,6 @@ public class SortingAlgorithm {
             int currGreen = colorList[i/increment][j/increment].getGreen();
             int currBlue = colorList[i/increment][j/increment].getBlue();
             
-            int currRGB = colorList[i/increment][j/increment].getRGB();
-            
-            ListOfColors[i/ increment][j/ increment] = currRGB;
-            
             RGBList[i/increment][j/increment] = currRed + currGreen + currBlue;
          }
       }
@@ -113,8 +111,10 @@ public class SortingAlgorithm {
                         RGBList[i/ increment][k/ increment] = RGBList[i/ increment][(k + increment)/ increment];
                         RGBList[i/ increment][(k + increment)/ increment] = t;
                         
+                        colorList[i/ increment][j/ increment] = new Color(RGBList[i/ increment][(k + 1)/ increment]);
+                        
                     }
-                    //refreshPanel();
+                    refreshPanel();
             }
          }
       }
