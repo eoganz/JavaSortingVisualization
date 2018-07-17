@@ -31,7 +31,10 @@ public class SortingAlgorithm {
       initializeImage();
       
       setRGBList();
-      sortColors(); 
+      sortColors();
+      refreshPanel();
+      sortColors();
+      sortColors();
    }
    
    
@@ -87,7 +90,7 @@ public class SortingAlgorithm {
             int currGreen = colorList[i/increment][j/increment].getGreen();
             int currBlue = colorList[i/increment][j/increment].getBlue();
             
-            RGBList[i/increment][j/increment] = currRed + currGreen + currBlue;
+            RGBList[i/increment][j/increment] = currRed + currGreen + (currBlue);
          }
       }
 
@@ -109,8 +112,8 @@ public class SortingAlgorithm {
                         RGBList[i/ increment][k/ increment] = RGBList[i/ increment][(k + increment)/ increment];
                         RGBList[i/ increment][(k + increment)/ increment] = t;
                         
-                        Color c = colorList[i/ increment][k/ increment] ;
-                        colorList[i/ increment][k/ increment] = new Color(RGBList[i/ increment][k/ increment]);
+                        Color c = colorList[i/ increment][k/ increment];
+                        colorList[i/ increment][k/ increment] = new Color(colorList[i/ increment][(k + increment)/ increment].getRGB());
                         colorList[i/ increment][(k + increment)/ increment]  = c;
                         
                     }
