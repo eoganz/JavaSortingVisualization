@@ -31,9 +31,7 @@ public class SortingAlgorithm {
       initializeImage();
       
       setRGBList();
-      sortColors();
-      refreshPanel();
-
+      sortColors(); 
    }
    
    
@@ -101,7 +99,7 @@ public class SortingAlgorithm {
       {
          for(int j = 0; j < height; j += increment)
          {
-            for (int k = 0; k < height - (j + (2 * increment)); k += increment)
+            for (int k = 0; k < height - (j + increment); k += increment)
             {
                     if (RGBList[i/ increment][k/ increment] > RGBList[i/ increment][(k + increment)/ increment])
                     {
@@ -111,7 +109,9 @@ public class SortingAlgorithm {
                         RGBList[i/ increment][k/ increment] = RGBList[i/ increment][(k + increment)/ increment];
                         RGBList[i/ increment][(k + increment)/ increment] = t;
                         
-                        colorList[i/ increment][j/ increment] = new Color(RGBList[i/ increment][(k + 1)/ increment]);
+                        Color c = colorList[i/ increment][k/ increment] ;
+                        colorList[i/ increment][k/ increment] = new Color(RGBList[i/ increment][k/ increment]);
+                        colorList[i/ increment][(k + increment)/ increment]  = c;
                         
                     }
                     refreshPanel();
